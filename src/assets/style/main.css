@@ -9,6 +9,8 @@ body,
 .wrapper {
   width: 100%;
   height: 100%;
+  background-color: #141615;
+  /* color: white; */
 }
 
 a {
@@ -24,4 +26,14 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+[aria-label="Export"] {
+  display: none !important;
+
+}
+
+.css-228fb87-MuiDataGrid-toolbarContainer {
+  /* padding: 10px !important; */
+  /* display: flex; */
 }

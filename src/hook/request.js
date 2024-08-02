@@ -1,55 +1,56 @@
-import { message } from "antd"
-import { useEffect, useState } from "react"
-import Axios from "../api"
+import Alert from "@mui/material/Alert";
+import { useEffect, useState } from "react";
+import Axios from "../api";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FlareIcon from "@mui/icons-material/Flare";
 
 export function usePostRequest(potions = {}) {
-  return useRequest({ method: 'POST', ...potions })
+  return useRequest({ method: "POST", ...potions });
 }
 
 export function usePutRequest(options = {}) {
-  return useRequest({ method: 'PUT', ...options })
+  return useRequest({ method: "PUT", ...options });
 }
 
 export function usePatchRequest(options = {}) {
-  return useRequest({ method: 'PATCH', ...options })
+  return useRequest({ method: "PATCH", ...options });
 }
 
 export function useGetRequest(options = {}) {
-  return useRequest({ method: 'GET', ...options })
+  return useRequest({ method: "GET", ...options });
 }
 
 export function useDeleteRequest(options = {}) {
-  return useRequest({ method: 'DELETE', ...options })
+  return useRequest({ method: "DELETE", ...options });
 }
 
 export function useRequest(options = {}) {
-  const [response, setResponse] = useState()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState({})
+  const [response, setResponse] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({});
 
   async function request(overrideObtions = {}, sync = false) {
-    setLoading(true)
+    setLoading(true);
 
     try {
       const { data } = await Axios({
         ...options,
         ...overrideObtions,
-      })
+      });
 
-      if (!sync) setResponse(data)
+      if (!sync) setResponse(data);
 
-      return { response: data, success: true }
+      return { response: data, success: true };
     } catch (e) {
-      setError(e.response || {})
+      setError(e.response || {});
       if (e.response === undefined) {
-        message.warning('Проверьте интернет соединение')
+        // alert(" Проверьте интернет соединение!");
+      } else if (e.response.status >= 500) {
+        // alert("Ошибка сервера.");
       }
-      else if (e.response.status >= 500) {
-        message.warning('Ошибка сервера.')
-      }
-      return { error: e.response, success: false }
+      return { error: e.response, success: false };
     } finally {
-      if (!sync) setLoading(false)
+      if (!sync) setLoading(false);
     }
   }
 
@@ -58,15 +59,15 @@ export function useRequest(options = {}) {
     request,
     error,
     response,
-  }
+  };
 }
 
 export function useLoad(options, dependencies = []) {
-  const request = useRequest({ method: 'GET', ...options })
-  
-  useEffect(() => {
-    request.request()
-  }, dependencies)
+  const request = useRequest({ method: "GET", ...options });
 
-  return request
+  useEffect(() => {
+    request.request();
+  }, dependencies);
+
+  return request;
 }

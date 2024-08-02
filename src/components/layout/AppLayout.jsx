@@ -1,20 +1,15 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { menuItems } from '../../constants/menuItem';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { Link, Route, Routes } from 'react-router-dom';
 import { routes } from '../../utils/routes';
+import { Button, ListItem } from '@mui/material';
 
 const drawerWidth = 200;
 
@@ -65,6 +60,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 
 
 
@@ -83,58 +84,57 @@ function AppLayout() {
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <Drawer variant="permanent" open={open} >
-          <DrawerHeader>
-            {/* {open && <h2 sx={{ width: "100%" }} >NIGGA</h2>} */}
-            <IconButton onClick={handleDrawer}>
-              {open ? <MenuOpenIcon /> : <MenuIcon />}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {menuItems.map((item, i) => (
-              <Link key={i} to={item.slug}>
-                <ListItem disablePadding sx={{ display: 'flex', paddingX: 1 }}>
-                  <ListItemButton
-                    LinkComponent={item.slug}
-                    aria-label="add to shopping cart"
-                    sx={{
-                      minHeight: 42,
-                      justifyContent: open ? 'initial' : 'center',
-                      p: 0,
-                      borderRadius: 1
-                    }}
-                  >
-                    <ListItemIcon
+      <ThemeProvider theme={darkTheme}>
+        <Box sx={{ display: 'flex' }}>
+          <Box sx={{ minWidth: 220, p: 2 }}>
+            <Box sx={{ height: 60, p: 2, backgroundColor: "white" }}>
+              LOGO
+            </Box>
+
+            <List>
+              {menuItems.map((item, i) => (
+                <Link key={i} to={item.slug}>
+                  <ListItem disablePadding sx={{ display: 'flex' }}>
+                    <ListItemButton
                       sx={{
-                        minWidth: 0,
-                        mr: open ? 2 : 'auto',
-                        justifyContent: 'center',
-                        pl: 1.4
+                        minHeight: 42,
+                        pX: 1,
+                        borderRadius: 1,
                       }}
                     >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-          <Divider />
-        </Drawer >
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Routes>
-            {
-              routes.map((item, i) => (
-                <Route key={i} path={item.path} element={item.element} />
-              ))
-            }
-            
-          </Routes>
-        </Box>
-      </Box >
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: 2,
+                          color: 'white',
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.label} sx={{ color: 'white' }} />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+
+          </Box>
+          <Box>
+
+          </Box>
+          <Box component="main" sx={{ flexGrow: 1, m: 4, bgcolor: '#212423', borderRadius: 3, overflow: 'hidden' }
+          }>
+            <Routes>
+              {
+                routes.map((item, i) => (
+                  <Route key={i} path={item.path} element={item.element} />
+                ))
+              }
+
+            </Routes>
+          </Box >
+        </Box >
+      </ThemeProvider>
     </>
   )
 };
