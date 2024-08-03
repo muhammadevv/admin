@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Axios from '../../api';
 import { useForm } from 'react-hook-form';
-import { Box, Button, Card, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, FormControl, TextField, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import SaveIcon from '@mui/icons-material/Save';
 
 function Login() {
 
@@ -12,12 +14,7 @@ function Login() {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm()
+  const { register, handleSubmit, formState: { errors }, } = useForm()
 
 
   const onFinish = (values) => {
@@ -45,18 +42,23 @@ function Login() {
   return (
     <div className='login-page'>
       <form onSubmit={handleSubmit(onFinish)}>
-        <Card sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
-          <Typography variant='h6' component="h8">
+        <Card sx={{ display: "flex", flexDirection: "column", borderRadius: 2 }}>
+          <Typography variant='h6' component="h6" sx={{ borderBottom: '1px solid #2a2d2c', p: 2 }}>
             Login
           </Typography>
-          <TextField size="small" required type="text" {...register("login")} label="Login" />
-          <TextField size="small" required type="password" {...register("password")} label="Password" />
-          {errors.exampleRequired && <span>This field is required</span>}
-          <Button type="submit" loading={loading} variant="contained">Log In</Button>
+          <FormControl sx={{
+            display: 'flex', gap: 2, p: 3
+          }}>
+            <TextField size="small" required type="text" {...register("login")
+            } label="Login" />
+            <TextField size="small" required type="password" {...register("password")} label="Password" />
+            {errors.exampleRequired && <span>This field is required</span>}
+            <LoadingButton loading={loading} type="submit" variant="contained">Log In</LoadingButton>
+          </FormControl>
         </Card>
       </form>
 
-    </div>
+    </div >
 
   );
 };

@@ -6,6 +6,8 @@ const AuthContext = createContext({})
 export const useAuth = () => useContext(AuthContext)
 
 function AuthProvider({ children }) {
+  const [openDeleteModal, setopenDeleteModal] = useState(false);
+
 
   const initialToken = getLocale('token') || ''
 
