@@ -30,10 +30,8 @@ a {
 
 [aria-label="Export"] {
   display: none !important;
-
 }
 
-.css-228fb87-MuiDataGrid-toolbarContainer {
-  /* padding: 10px !important; */
-  /* display: flex; */
+[aria-label="Show filters"] {
+  margin: 10px !important;
 }

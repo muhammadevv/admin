@@ -1,7 +1,7 @@
-export const categoriesList = "/categorys";
-export const categoriesPost = "/categorys";
-export const categoriesPatch = (id) => `/categorys/${id}`;
-export const categoriesDelete = (id) => `/categorys/${id}`;
+export const categoriesList = "/categories";
+export const categoriesPost = "/categories";
+export const categoriesPatch = (id) => `/categories/${id}`;
+export const categoriesDelete = (id) => `/categories/${id}`;
 
 // Brands
 export const brandsList = "/brands";

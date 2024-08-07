@@ -40,7 +40,7 @@ function Login() {
   }
 
   return (
-    <div className='login-page'>
+    <div className='login-page' >
       <form onSubmit={handleSubmit(onFinish)}>
         <Card sx={{ display: "flex", flexDirection: "column", borderRadius: 2 }}>
           <Typography variant='h6' component="h6" sx={{ borderBottom: '1px solid #2a2d2c', p: 2 }}>
